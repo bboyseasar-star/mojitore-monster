@@ -1,0 +1,52 @@
+もじトレ モンスター (Mojitore Monster)
+======================================
+
+■ ライセンス / License
+----------------------------------------
+本プロジェクトには、KanjiVG の書き順データを利用・加工して含んでいます。
+KanjiVG は Creative Commons 表示-継承 3.0 (CC BY-SA 3.0) で提供されており、
+その「継承（ShareAlike）」条件に従い、本プロジェクト全体
+（アプリのコード、および加工した書き順データ）を CC BY-SA 3.0 で公開します。
+
+This project includes stroke-order data derived from KanjiVG.
+KanjiVG is licensed under Creative Commons Attribution-ShareAlike 3.0
+(CC BY-SA 3.0). In compliance with its ShareAlike term, this entire work
+(the application code and the adapted stroke-order data) is distributed
+under the Creative Commons Attribution-ShareAlike 3.0 license.
+
+ライセンス全文 / Full legal code:
+  https://creativecommons.org/licenses/by-sa/3.0/legalcode
+概要 / Summary (human-readable):
+  https://creativecommons.org/licenses/by-sa/3.0/
+
+
+■ 帰属表示 / Attribution
+----------------------------------------
+書き順データ / Stroke-order data: KanjiVG
+  Copyright (C) Ulrich Apel and the KanjiVG contributors
+  Website: https://kanjivg.tagaini.net/
+  License: CC BY-SA 3.0
+
+学年別漢字の分類の参照 / Grade classification reference:
+  kanjiapi.dev (https://kanjiapi.dev/) — 教育漢字の学年リストの参照に使用。
+
+
+■ 加工内容 / Modifications
+----------------------------------------
+KanjiVG の各 SVG ファイルから、文字ごとの画（ストローク）のパス（d 属性）を
+画順どおりに抽出し、JSON 形式に変換して本アプリに埋め込んでいます。座標は
+KanjiVG 原寸（viewBox 109）のままです。
+
+Stroke path data (the "d" attribute of each stroke) was extracted from the
+KanjiVG SVG files, ordered by stroke number, and converted into JSON that is
+embedded in this application. Coordinates are kept at the original KanjiVG
+scale (viewBox 109).
+
+
+■ モンスター等のイラスト / Artwork
+----------------------------------------
+本アプリ内のモンスターなどのイラストは、本プロジェクトのオリジナル（SVGで自作）です。
+特定の作品・キャラクターに由来するものではありません。
+
+The monster and other artwork in this app are original to this project
+(hand-authored SVG) and are not derived from any specific third-party work.

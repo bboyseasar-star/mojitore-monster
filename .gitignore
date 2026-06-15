@@ -1,0 +1,6 @@
+.DS_Store
+.claude/
+_kvg_src/
+node_modules/
+*.zip
+*.log
