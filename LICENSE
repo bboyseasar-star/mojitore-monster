@@ -5,19 +5,29 @@
 ----------------------------------------
 本プロジェクトには、KanjiVG の書き順データを利用・加工して含んでいます。
 KanjiVG は Creative Commons 表示-継承 3.0 (CC BY-SA 3.0) で提供されており、
-その「継承（ShareAlike）」条件に従い、本プロジェクト全体
-（アプリのコード、および加工した書き順データ）を CC BY-SA 3.0 で公開します。
+また、読み方・語例データには kanjiapi.dev 経由で参照した KANJIDIC2 / JMdict
+由来データ（Electronic Dictionary Research and Development Group, EDRDG）を
+利用・加工して含んでいます。EDRDG の辞書データは Creative Commons 表示-継承
+4.0 (CC BY-SA 4.0) で提供されています。
+これらの「継承（ShareAlike）」条件に従い、本プロジェクト全体
+（アプリのコード、加工した書き順データ、読み方・語例データ）を
+CC BY-SA 4.0 で公開します。
 
 This project includes stroke-order data derived from KanjiVG.
 KanjiVG is licensed under Creative Commons Attribution-ShareAlike 3.0
-(CC BY-SA 3.0). In compliance with its ShareAlike term, this entire work
-(the application code and the adapted stroke-order data) is distributed
-under the Creative Commons Attribution-ShareAlike 3.0 license.
+(CC BY-SA 3.0). It also includes reading and word-example data derived from
+KANJIDIC2 / JMdict data via kanjiapi.dev. The KANJIDIC2 and JMdict data are
+maintained by the Electronic Dictionary Research and Development Group
+(EDRDG) and licensed under Creative Commons Attribution-ShareAlike 4.0
+(CC BY-SA 4.0). In compliance with these ShareAlike terms, this entire work
+(the application code, adapted stroke-order data, and reading / word-example
+data) is distributed under the Creative Commons Attribution-ShareAlike 4.0
+license.
 
 ライセンス全文 / Full legal code:
-  https://creativecommons.org/licenses/by-sa/3.0/legalcode
+  https://creativecommons.org/licenses/by-sa/4.0/legalcode
 概要 / Summary (human-readable):
-  https://creativecommons.org/licenses/by-sa/3.0/
+  https://creativecommons.org/licenses/by-sa/4.0/
 
 
 ■ 帰属表示 / Attribution
@@ -25,10 +35,15 @@ under the Creative Commons Attribution-ShareAlike 3.0 license.
 書き順データ / Stroke-order data: KanjiVG
   Copyright (C) Ulrich Apel and the KanjiVG contributors
   Website: https://kanjivg.tagaini.net/
-  License: CC BY-SA 3.0
+  Original license: CC BY-SA 3.0
 
-学年別漢字の分類の参照 / Grade classification reference:
-  kanjiapi.dev (https://kanjiapi.dev/) — 教育漢字の学年リストの参照に使用。
+学年別漢字の分類・読み方・語例データ /
+Grade classification, readings, and word-example data:
+  kanjiapi.dev (https://kanjiapi.dev/)
+  Source data: KANJIDIC2 / JMdict
+  Copyright: Electronic Dictionary Research and Development Group (EDRDG)
+  License: CC BY-SA 4.0
+  Licence statement: https://www.edrdg.org/edrdg/licence.html
 
 
 ■ 加工内容 / Modifications
@@ -41,6 +56,13 @@ Stroke path data (the "d" attribute of each stroke) was extracted from the
 KanjiVG SVG files, ordered by stroke number, and converted into JSON that is
 embedded in this application. Coordinates are kept at the original KanjiVG
 scale (viewBox 109).
+
+kanjiapi.dev から取得した学年、音読み、訓読み、語例データを、小学生向けの
+書き順練習画面に表示しやすい JSON 形式へ変換して本アプリに埋め込んでいます。
+
+Grade, on-reading, kun-reading, and word-example data obtained via
+kanjiapi.dev were converted into JSON embedded in this application for
+display in an elementary-student stroke-order practice interface.
 
 
 ■ モンスター等のイラスト / Artwork

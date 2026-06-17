@@ -21,7 +21,8 @@ https://bboyseasar-star.github.io/mojitore-monster/
 
 ## クレジット・ライセンス
 - 書き順データ: [KanjiVG](https://kanjivg.tagaini.net/) © Ulrich Apel ほか（CC BY-SA 3.0）
-- 学年分類の参照: [kanjiapi.dev](https://kanjiapi.dev/)
-- 本プロジェクトは KanjiVG の継承条件に従い **CC BY-SA 3.0** で公開します。
+- 学年分類・読み・語例データ: [kanjiapi.dev](https://kanjiapi.dev/) 経由で参照した
+  [KANJIDIC2 / JMdict](https://www.edrdg.org/) 由来データ（EDRDG、CC BY-SA 4.0）
+- 本プロジェクトは、上記データの継承条件に従い **CC BY-SA 4.0** で公開します。
   詳細は [LICENSE](./LICENSE) を参照してください。
 - モンスター等のイラストはオリジナル（自作SVG）です。
