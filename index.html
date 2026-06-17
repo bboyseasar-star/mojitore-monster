@@ -60,6 +60,7 @@
   .home-actions{display:flex; flex-direction:column; gap:12px; align-items:center; margin-top:18px; width:100%; max-width:420px;}
   .home-actions .btn.big{width:100%;}
   .btn.big2{font-size:19px; padding:14px 24px; border-radius:20px; width:100%;}
+  .btn.test{background:linear-gradient(90deg,#ff9f43,#ff5a8a);}
   .goaltxt{font-size:15px; font-weight:700; opacity:.8; margin-top:10px; text-align:center;}
   .rarity{font-size:16px; letter-spacing:2px; min-height:20px;}
   .evorow{display:flex; align-items:center; justify-content:center; gap:8px; margin-top:2px;}
@@ -111,6 +112,15 @@
   .cat-card .cbar span{display:block; height:100%; background:linear-gradient(90deg,#ffc83d,#ff9f43); border-radius:999px;}
   .cat-card .cnum{font-size:13px; font-weight:700; opacity:.6; white-space:nowrap;}
   .cat-card .cgo{font-size:20px; color:var(--accent);}
+  .test-panel{width:100%; max-width:460px; display:flex; flex-direction:column; gap:12px;}
+  .test-group{background:var(--card); border-radius:20px; padding:14px; box-shadow:var(--shadow);}
+  .test-label{font-size:14px; font-weight:800; opacity:.7; margin-bottom:8px;}
+  .seg{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px;}
+  .seg.grades{grid-template-columns:repeat(3,minmax(0,1fr));}
+  .seg button{border:2px solid #eee5dd; background:#fff; color:var(--ink); border-radius:14px; padding:12px 8px; font-family:inherit; font-size:16px; font-weight:800; cursor:pointer;}
+  .seg button.active{border-color:var(--accent); background:#fff0f7; color:#d93d83;}
+  .test-note{font-size:13px; font-weight:700; opacity:.72; line-height:1.6; text-align:center;}
+  .test-status{font-size:18px; color:#fff; background:linear-gradient(90deg,#ff9f43,#ff5a8a); padding:7px 16px; border-radius:999px; box-shadow:0 3px 10px rgba(255,90,138,.35);}
   /* 漢字グリッド */
   .kanji-grid{display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:6px; width:100%; max-width:480px;}
   .kanji-grid .cell{aspect-ratio:1/1; font-size:min(7vw,28px);}
@@ -132,6 +142,11 @@
   canvas{display:block; border-radius:16px; touch-action:none;}
   .msg{min-height:30px; font-size:19px; font-weight:800; margin:12px 0 6px; text-align:center; transition:color .2s;}
   .msg.good{color:var(--good);} .msg.bad{color:#ff5a5a;} .msg.info{color:var(--ink); opacity:.75;}
+  .kanji-info{display:none; width:100%; max-width:420px; background:rgba(255,255,255,.86); border-radius:18px; padding:10px 12px; box-shadow:0 3px 10px rgba(0,0,0,.08); font-weight:800; line-height:1.55; margin-top:2px;}
+  .kanji-info.active{display:block;}
+  .kanji-info .readings{display:flex; gap:8px; flex-wrap:wrap; font-size:14px;}
+  .kanji-info .tag{background:#fff4cf; border-radius:999px; padding:4px 9px;}
+  .kanji-info .example{font-size:15px; margin-top:6px;}
   .pr-actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:4px;}
 
   /* OVERLAY */
@@ -196,6 +211,7 @@
   <div class="goaltxt" id="goalTxt"></div>
   <div class="home-actions">
     <button class="btn big" onclick="goCategories()">れんしゅう する ✏️</button>
+    <button class="btn test big2" onclick="goTestSetup()">テストに ちょうせん 🏆</button>
     <button class="btn ghost big2" onclick="goChars()">🐣 なかまを えらぶ</button>
   </div>
   <div class="footer-note">かきじゅんデータ: <a href="https://kanjivg.tagaini.net/" target="_blank" rel="noopener">KanjiVG</a> © Ulrich Apel ほか ／ <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>（このアプリも同ライセンス）</div>
@@ -220,6 +236,27 @@
   <div class="sel-head">だれが れんしゅうする？</div>
   <div class="chars-note">ひとりずつ せいせきや モンスターが べつべつに きろくされるよ</div>
   <div class="prof-grid" id="profGrid"></div>
+</section>
+
+<!-- ============ TEST SETUP ============ -->
+<section id="testSetup" class="screen">
+  <div class="topbar">
+    <button class="btn ghost" onclick="goHome()">← もどる</button>
+    <span class="pill">10もん テスト</span>
+  </div>
+  <div class="sel-head">テストを えらぼう！</div>
+  <div class="test-panel">
+    <div class="test-group">
+      <div class="test-label">もじの しゅるい</div>
+      <div class="seg" id="testTypeSeg"></div>
+    </div>
+    <div class="test-group" id="testGradeGroup">
+      <div class="test-label">かんじの がくねん</div>
+      <div class="seg grades" id="testGradeSeg"></div>
+    </div>
+    <div class="test-note">れんしゅうは けいけんち すこし。テストは たくさん もらえるよ。ノーミスなら ボーナス！</div>
+    <button class="btn test big2" onclick="startTenQuestionTest()">スタート！</button>
+  </div>
 </section>
 
 <!-- ============ CATEGORIES (なにを れんしゅう？) ============ -->
@@ -249,7 +286,7 @@
 <!-- ============ PRACTICE ============ -->
 <section id="practice" class="screen">
   <div class="topbar">
-    <button class="btn ghost" onclick="goSelect()">← もどる</button>
+    <button class="btn ghost" onclick="goPracticeBack()">← もどる</button>
     <span class="pill" id="strokeInfo">1／1 かくめ</span>
   </div>
   <div class="pr-head"><span class="big" id="prChar">あ</span><span id="prVerb">を なぞろう！</span></div>
@@ -257,6 +294,7 @@
   <div class="canvas-box">
     <canvas id="cv"></canvas>
   </div>
+  <div class="kanji-info" id="kanjiInfo"></div>
   <div class="msg info" id="msg">あおい せんを なぞってね</div>
   <div class="pr-actions">
     <button class="btn blue" id="demoBtn" onclick="playDemo()">▶ おてほん</button>
@@ -1395,6 +1433,12 @@ const CAT_BY_ID = {}; CATS.forEach(c=>CAT_BY_ID[c.id]=c);
 const TOTAL_CHARS = Object.keys(DATA).length;
 const GOJUON_IDX = [[0,1,2,3,4],[5,6,7,8,9],[10,11,12,13,14],[15,16,17,18,19],[20,21,22,23,24],[25,26,27,28,29],[30,31,32,33,34],[35,null,36,null,37],[38,39,40,41,42],[43,null,null,null,44]];
 const GOJUON_LAST = 45;
+const KANJI_READINGS = {
+  "一":{on:"イチ・イツ",kun:"ひと・ひとつ"},"七":{on:"シチ",kun:"なな・なの"},"三":{on:"サン",kun:"み・みっつ"},"上":{on:"ジョウ",kun:"うえ・あがる"},"下":{on:"カ・ゲ",kun:"した・さがる"},"中":{on:"チュウ",kun:"なか"},"九":{on:"キュウ・ク",kun:"ここのつ"},"二":{on:"ニ",kun:"ふた・ふたつ"},"五":{on:"ゴ",kun:"いつつ"},"人":{on:"ジン・ニン",kun:"ひと"},"休":{on:"キュウ",kun:"やすむ"},"先":{on:"セン",kun:"さき"},"入":{on:"ニュウ",kun:"いる・はいる"},"八":{on:"ハチ",kun:"や・やっつ"},"六":{on:"ロク",kun:"む・むっつ"},"円":{on:"エン",kun:"まるい"},"出":{on:"シュツ",kun:"でる・だす"},"力":{on:"リョク・リキ",kun:"ちから"},"十":{on:"ジュウ",kun:"とお"},"千":{on:"セン",kun:"ち"},"口":{on:"コウ・ク",kun:"くち"},"右":{on:"ウ・ユウ",kun:"みぎ"},"名":{on:"メイ・ミョウ",kun:"な"},"四":{on:"シ",kun:"よん・よっつ"},"土":{on:"ド・ト",kun:"つち"},"大":{on:"ダイ・タイ",kun:"おおきい"},"天":{on:"テン",kun:"あま"},"女":{on:"ジョ・ニョ",kun:"おんな"},"子":{on:"シ・ス",kun:"こ"},"字":{on:"ジ",kun:"あざ"},"学":{on:"ガク",kun:"まなぶ"},"小":{on:"ショウ",kun:"ちいさい"},"山":{on:"サン",kun:"やま"},"川":{on:"セン",kun:"かわ"},"年":{on:"ネン",kun:"とし"},"手":{on:"シュ",kun:"て"},"文":{on:"ブン・モン",kun:"ふみ"},"日":{on:"ニチ・ジツ",kun:"ひ・か"},"月":{on:"ゲツ・ガツ",kun:"つき"},"木":{on:"モク・ボク",kun:"き"},"本":{on:"ホン",kun:"もと"},"正":{on:"セイ・ショウ",kun:"ただしい"},"気":{on:"キ・ケ",kun:""},"水":{on:"スイ",kun:"みず"},"火":{on:"カ",kun:"ひ"},"犬":{on:"ケン",kun:"いぬ"},"生":{on:"セイ・ショウ",kun:"いきる・うまれる"},"田":{on:"デン",kun:"た"},"白":{on:"ハク・ビャク",kun:"しろ"},"目":{on:"モク",kun:"め"},"空":{on:"クウ",kun:"そら・あく"},"花":{on:"カ",kun:"はな"},"虫":{on:"チュウ",kun:"むし"},"見":{on:"ケン",kun:"みる"},"金":{on:"キン・コン",kun:"かね"},"雨":{on:"ウ",kun:"あめ"},"青":{on:"セイ・ショウ",kun:"あお"},"音":{on:"オン・イン",kun:"おと・ね"},
+  "今":{on:"コン・キン",kun:"いま"},"会":{on:"カイ・エ",kun:"あう"},"体":{on:"タイ・テイ",kun:"からだ"},"作":{on:"サク・サ",kun:"つくる"},"元":{on:"ゲン・ガン",kun:"もと"},"光":{on:"コウ",kun:"ひかる・ひかり"},"公":{on:"コウ",kun:"おおやけ"},"分":{on:"ブン・フン",kun:"わける・わかる"},"前":{on:"ゼン",kun:"まえ"},"友":{on:"ユウ",kun:"とも"},"合":{on:"ゴウ・ガッ",kun:"あう"},"同":{on:"ドウ",kun:"おなじ"},"図":{on:"ズ・ト",kun:"はかる"},"国":{on:"コク",kun:"くに"},"地":{on:"チ・ジ",kun:""},"外":{on:"ガイ・ゲ",kun:"そと・ほか"},"多":{on:"タ",kun:"おおい"},"家":{on:"カ・ケ",kun:"いえ・や"},"少":{on:"ショウ",kun:"すくない・すこし"},"工":{on:"コウ・ク",kun:""},"市":{on:"シ",kun:"いち"},"引":{on:"イン",kun:"ひく"},"強":{on:"キョウ・ゴウ",kun:"つよい"},"心":{on:"シン",kun:"こころ"},"思":{on:"シ",kun:"おもう"},"教":{on:"キョウ",kun:"おしえる"},"数":{on:"スウ",kun:"かず・かぞえる"},"新":{on:"シン",kun:"あたらしい"},"方":{on:"ホウ",kun:"かた"},"明":{on:"メイ・ミョウ",kun:"あかるい"},"時":{on:"ジ",kun:"とき"},"書":{on:"ショ",kun:"かく"},"来":{on:"ライ",kun:"くる"},"東":{on:"トウ",kun:"ひがし"},"楽":{on:"ガク・ラク",kun:"たのしい"},"歌":{on:"カ",kun:"うた・うたう"},"歩":{on:"ホ・ブ",kun:"あるく"},"母":{on:"ボ",kun:"はは"},"父":{on:"フ",kun:"ちち"},"理":{on:"リ",kun:""},"用":{on:"ヨウ",kun:"もちいる"},"知":{on:"チ",kun:"しる"},"社":{on:"シャ",kun:"やしろ"},"行":{on:"コウ・ギョウ",kun:"いく・おこなう"},"言":{on:"ゲン・ゴン",kun:"いう・こと"},"語":{on:"ゴ",kun:"かたる"},"読":{on:"ドク・トク",kun:"よむ"},"走":{on:"ソウ",kun:"はしる"},"道":{on:"ドウ",kun:"みち"},"食":{on:"ショク",kun:"たべる・くう"},"高":{on:"コウ",kun:"たかい"},
+  "主":{on:"シュ",kun:"ぬし・おも"},"事":{on:"ジ・ズ",kun:"こと"},"使":{on:"シ",kun:"つかう"},"全":{on:"ゼン",kun:"すべて"},"勉":{on:"ベン",kun:"つとめる"},"動":{on:"ドウ",kun:"うごく"},"化":{on:"カ・ケ",kun:"ばける"},"安":{on:"アン",kun:"やすい"},"実":{on:"ジツ",kun:"み・みのる"},"寒":{on:"カン",kun:"さむい"},"急":{on:"キュウ",kun:"いそぐ"},"悪":{on:"アク・オ",kun:"わるい"},"感":{on:"カン",kun:""},"所":{on:"ショ",kun:"ところ"},"持":{on:"ジ",kun:"もつ"},"旅":{on:"リョ",kun:"たび"},"昔":{on:"セキ・シャク",kun:"むかし"},"暗":{on:"アン",kun:"くらい"},"服":{on:"フク",kun:""},"業":{on:"ギョウ・ゴウ",kun:"わざ"},"橋":{on:"キョウ",kun:"はし"},"決":{on:"ケツ",kun:"きめる"},"漢":{on:"カン",kun:""},"物":{on:"ブツ・モツ",kun:"もの"},"球":{on:"キュウ",kun:"たま"},"界":{on:"カイ",kun:""},"病":{on:"ビョウ",kun:"やむ"},"発":{on:"ハツ・ホツ",kun:""},"真":{on:"シン",kun:"ま"},"着":{on:"チャク",kun:"きる・つく"},"短":{on:"タン",kun:"みじかい"},"章":{on:"ショウ",kun:""},"童":{on:"ドウ",kun:"わらべ"},"練":{on:"レン",kun:"ねる"},"習":{on:"シュウ",kun:"ならう"},"者":{on:"シャ",kun:"もの"},"育":{on:"イク",kun:"そだつ・そだてる"},"苦":{on:"ク",kun:"くるしい・にがい"},"落":{on:"ラク",kun:"おちる"},"葉":{on:"ヨウ",kun:"は"},"詩":{on:"シ",kun:""},"調":{on:"チョウ",kun:"しらべる"},"負":{on:"フ",kun:"まける・おう"},"起":{on:"キ",kun:"おきる"},"路":{on:"ロ",kun:"じ"},"身":{on:"シン",kun:"み"},"転":{on:"テン",kun:"ころがる"},"軽":{on:"ケイ",kun:"かるい"},"農":{on:"ノウ",kun:""},"返":{on:"ヘン",kun:"かえす"},"送":{on:"ソウ",kun:"おくる"},"速":{on:"ソク",kun:"はやい"},"進":{on:"シン",kun:"すすむ"},"遊":{on:"ユウ",kun:"あそぶ"},"運":{on:"ウン",kun:"はこぶ"},"部":{on:"ブ",kun:""},"都":{on:"ト・ツ",kun:"みやこ"},"配":{on:"ハイ",kun:"くばる"},"酒":{on:"シュ",kun:"さけ"},"重":{on:"ジュウ・チョウ",kun:"おもい・かさねる"},"鉄":{on:"テツ",kun:""},"銀":{on:"ギン",kun:""},"開":{on:"カイ",kun:"ひらく・あく"},"院":{on:"イン",kun:""},"陽":{on:"ヨウ",kun:"ひ"},"集":{on:"シュウ",kun:"あつまる"},"面":{on:"メン",kun:"おもて"},"題":{on:"ダイ",kun:""},"飲":{on:"イン",kun:"のむ"},"館":{on:"カン",kun:"やかた"},"駅":{on:"エキ",kun:""}
+};
+const TEST_XP = { practiceFirst:8, practiceRepeat:3, testFirst:36, testRepeat:18, noMissBonus:14, tenQuestionBonus:20 };
 /*DATA_END*/
 
 /* ====================== セーブデータ（プロフィール別） ====================== */
@@ -1525,6 +1569,8 @@ function goCategories(){ stopAnim(); renderCategories(); show('categories'); }
 function goSelect(cat){ if(cat) curCat=cat; stopAnim(); renderSelect(); show('select'); }
 function goChars(){ stopAnim(); renderChars(); show('chars'); }
 function goProfiles(){ stopAnim(); renderProfiles(); show('profiles'); }
+function goTestSetup(){ stopAnim(); renderTestSetup(); show('testSetup'); }
+function goPracticeBack(){ if(mode==='tenTest') goTestSetup(); else goSelect(); }
 
 /* ====================== プロフィール画面 ====================== */
 function renderProfiles(){
@@ -1676,6 +1722,104 @@ function renderSelect(){
   }
 }
 
+/* ====================== 10もんテスト設定 ====================== */
+let testType='hira', testGrade='g1', testQueue=[], testIndex=0, testCorrect=0, testTotalMistakes=0;
+
+function renderTestSetup(){
+  const typeSeg=document.getElementById('testTypeSeg');
+  typeSeg.innerHTML='';
+  [['hira','ひらがな'],['kata','カタカナ'],['kanji','かんじ']].forEach(([id,label])=>{
+    const b=document.createElement('button');
+    b.textContent=label; b.className=(testType===id)?'active':'';
+    b.onclick=()=>{ testType=id; renderTestSetup(); };
+    typeSeg.appendChild(b);
+  });
+  document.getElementById('testGradeGroup').style.display = testType==='kanji' ? '' : 'none';
+  const gradeSeg=document.getElementById('testGradeSeg');
+  gradeSeg.innerHTML='';
+  for(let i=1;i<=6;i++){
+    const id='g'+i, b=document.createElement('button');
+    b.textContent=i+'年'; b.className=(testGrade===id)?'active':'';
+    b.onclick=()=>{ testGrade=id; renderTestSetup(); };
+    gradeSeg.appendChild(b);
+  }
+}
+
+function shuffle(arr){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+
+function startTenQuestionTest(){
+  checkStreak();
+  const catId = testType==='kanji' ? testGrade : testType;
+  const cat = CAT_BY_ID[catId] || CATS[0];
+  testQueue = shuffle(cat.chars.filter(ch=>DATA[ch])).slice(0,10);
+  testIndex=0; testCorrect=0; testTotalMistakes=0;
+  startTestQuestion();
+}
+
+function startTestQuestion(){
+  if(testIndex>=testQueue.length){ finishTenQuestionTest(); return; }
+  curChar=testQueue[testIndex]; strokes=DATA[curChar]; curStroke=0; userPts=[];
+  mode='tenTest'; testMistakes=0;
+  document.getElementById('prChar').textContent=curChar;
+  show('practice');
+  layoutCanvas();
+  updateKanjiInfo();
+  updateProgress(); updateStrokeInfo();
+  setMsg(`${testIndex+1}もんめ！おてほんなしで かいてね`,'info');
+  startAnim();
+}
+
+function finishTenQuestionTest(){
+  const perfect = testTotalMistakes===0;
+  const gain = testCorrect*TEST_XP.testRepeat + (perfect?TEST_XP.noMissBonus:0) + TEST_XP.tenQuestionBonus;
+  addXp(gain);
+  saveNow();
+  document.getElementById('popTitle').textContent = `テスト ${testCorrect}／${testQueue.length}もん クリア！`;
+  document.getElementById('popXp').innerHTML = `＋${gain} けいけんち<div class="bonus">テストは けいけんち たっぷり！</div>` + (perfect?`<div class="bonus">🌟 ノーミス ボーナス！</div>`:`<div class="miss">ミス ${testTotalMistakes}かい。つぎは ノーミス！</div>`);
+  document.getElementById('popEvo').style.display="none";
+  const acts=document.getElementById('popActions'); acts.innerHTML="";
+  const retry=document.createElement('button'); retry.className="btn green"; retry.textContent="もういちど";
+  retry.onclick=()=>{ closeOverlay(); startTenQuestionTest(); };
+  const setup=document.createElement('button'); setup.className="btn blue"; setup.textContent="テストを えらぶ";
+  setup.onclick=()=>{ closeOverlay(); goTestSetup(); };
+  const home=document.createElement('button'); home.className="btn ghost"; home.textContent="おうちへ";
+  home.onclick=()=>{ closeOverlay(); goHome(); };
+  acts.appendChild(retry); acts.appendChild(setup); acts.appendChild(home);
+  document.getElementById('overlay').classList.add('active');
+  confettiBurst(perfect?56:34);
+}
+
+function gradeOfChar(ch){
+  const cat=CATS.find(c=>/^g\d$/.test(c.id) && c.chars.includes(ch));
+  return cat ? Number(cat.id.slice(1)) : 0;
+}
+
+function updateKanjiInfo(){
+  const box=document.getElementById('kanjiInfo');
+  const grade=gradeOfChar(curChar);
+  if(!grade){ box.classList.remove('active'); box.innerHTML=''; return; }
+  const r=KANJI_READINGS[curChar] || {on:'これから追加', kun:'これから追加'};
+  const example = kanjiExample(curChar, grade);
+  box.innerHTML = `<div class="readings"><span class="tag">音：${r.on||'なし'}</span><span class="tag">訓：${r.kun||'なし'}</span><span class="tag">${grade}年</span></div><div class="example">れい：${example}</div>`;
+  box.classList.add('active');
+}
+
+function kanjiExample(ch, grade){
+  const known = {
+    "一":"一つ えらぶ。","人":"人に やさしく する。","学":"学校で 学ぶ。","水":"水を のむ。","花":"花が さいた。","雨":"雨が ふる。",
+    "今":"今から はじめる。","作":"作文を 作る。","教":"先生が 教える。","読":"本を 読む。","道":"学校までの 道。","高":"高い 山に のぼる。",
+    "勉":"勉強を がんばる。","習":"漢字を 習う。","感":"ありがとうと 感じる。","速":"速く 走る。","開":"ドアを 開く。","題":"問題を とく。"
+  };
+  if(known[ch]) return known[ch];
+  if(grade<=2) return `${ch}を つかった ことばを 先生と いっしょに さがそう。`;
+  if(grade<=4) return `${ch}を 使った 文を 一つ 作ろう。`;
+  return `${ch}を 使って、短い説明文を書こう。`;
+}
+
 /* ====================== 練習エンジン ====================== */
 const cv = document.getElementById('cv');
 const ctx = cv.getContext('2d');
@@ -1746,18 +1890,20 @@ function startPractice(ch){
   document.getElementById('prChar').textContent=ch;
   show('practice');
   layoutCanvas();
+  updateKanjiInfo();
   updateProgress(); updateStrokeInfo();
   setMsg('あおい せんを なぞってね','info');
   startAnim();
 }
 function updateStrokeInfo(){
   document.getElementById('strokeInfo').textContent=`${curStroke+1}／${strokes.length} かくめ`;
-  document.getElementById('prVerb').textContent = (mode==='test')?'の テスト！':'を なぞろう！';
+  document.getElementById('prVerb').textContent = (mode==='test'||mode==='tenTest')?'の テスト！':'を なぞろう！';
 }
 function updateProgress(){
   const p=document.getElementById('prog');
   // テスト中は「おてほん」を隠す（自力で書く）
-  document.getElementById('demoBtn').style.display = (mode==='test')?'none':'';
+  document.getElementById('demoBtn').style.display = (mode==='test'||mode==='tenTest')?'none':'';
+  if(mode==='tenTest'){ p.innerHTML=`<span class="test-status">テスト ${testIndex+1}／${testQueue.length}</span>`; return; }
   if(mode==='test'){ p.innerHTML='<span class="prog-test">テスト ✏️ ヒントなし</span>'; return; }
   let s='<span class="prog-label">れんしゅう</span>';
   for(let i=0;i<TARGET_PRACTICE;i++) s+=`<span class="dot${i<practiceCount?' on':''}">★</span>`;
@@ -1867,7 +2013,7 @@ function endStroke(e){
       'short':'ゆっくり せんの うえを なぞってね'
     };
     let txt = m[res.reason]||'もういちど なぞってみよう';
-    if(mode==='test'){
+    if(mode==='test'||mode==='tenTest'){
       testMistakes++;
       const lost = applyPenalty(TEST_PENALTY);
       if(lost>0) txt += ` （−${lost} けいけんち…💦）`;
@@ -1921,6 +2067,19 @@ function onRepComplete(){
       setMsg(`${practiceCount}かいめ できた！ のこり ${TARGET_PRACTICE-practiceCount}かい 💪`,'good');
       drawAll();
     }
+  }else if(mode==='tenTest'){
+    testTotalMistakes += testMistakes;
+    if(testMistakes===0) testCorrect++;
+    S.mastered[curChar] = (S.mastered[curChar]||0)+1;
+    S.todayCount = (S.todayCount||0)+1;
+    saveNow();
+    testIndex++;
+    if(testIndex>=testQueue.length){
+      finishTenQuestionTest();
+    }else{
+      setMsg('できた！つぎの もんだいへ','good');
+      setTimeout(startTestQuestion, 650);
+    }
   }else{
     // テスト合格 → クリア
     finishChar();
@@ -1932,10 +2091,11 @@ function finishChar(){
   stopAnim(); drawAll();
   checkStreak(); // 先に日付処理（日付が変わっていればtodayCountリセット）
   const first = !S.mastered[curChar];
-  const base = first?20:8;
+  const base = first?TEST_XP.practiceFirst:TEST_XP.practiceRepeat;
   const noMiss = (testMistakes===0);
-  const bonus = noMiss?10:0;
-  const gain = base+bonus;
+  const testBonus = first?TEST_XP.testFirst:TEST_XP.testRepeat;
+  const bonus = noMiss?TEST_XP.noMissBonus:0;
+  const gain = base+testBonus+bonus;
   const id = S.active;
   const stageBefore = petInfo(id).stage;
   addXp(gain);
@@ -1951,6 +2111,7 @@ function showReward(gain, base, bonus, first, noMiss, evolved, stage){
   const c = CHAR_BY_ID[S.active];
   document.getElementById('popTitle').textContent = first?`「${curChar}」マスター！`:`「${curChar}」はなまる！`;
   let xpHtml = `＋${gain} けいけんち`;
+  xpHtml += `<div class="bonus">れんしゅう ＋${base}／テスト ＋${first?TEST_XP.testFirst:TEST_XP.testRepeat}</div>`;
   if(bonus>0) xpHtml += `<div class="bonus">🌟 ノーミス ボーナス ＋${bonus}！</div>`;
   else xpHtml += `<div class="miss">ミス ${testMistakes}かい… つぎは ノーミス めざそう！</div>`;
   document.getElementById('popXp').innerHTML = xpHtml;
