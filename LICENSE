@@ -3,72 +3,69 @@
 
 ■ ライセンス / License
 ----------------------------------------
-本プロジェクトには、KanjiVG の書き順データを利用・加工して含んでいます。
-KanjiVG は Creative Commons 表示-継承 3.0 (CC BY-SA 3.0) で提供されており、
-また、読み方・語例データには kanjiapi.dev 経由で参照した KANJIDIC2 / JMdict
-由来データ（Electronic Dictionary Research and Development Group, EDRDG）を
-利用・加工して含んでいます。EDRDG の辞書データは Creative Commons 表示-継承
+本プロジェクトには、KanjiVG の書き順データを利用・加工して含んでいます。KanjiVG は
+Creative Commons 表示-継承 3.0 (CC BY-SA 3.0) で提供されています。また、
+KANJIDIC2 / JMdict dictionary files に由来する、児童向けに選定した読み方・語例データを利用・加工して
+含んでいます。これらの辞書データの著作権者は James William Breen および Electronic
+Dictionary Research and Development Group (EDRDG) であり、Creative Commons 表示-継承
 4.0 (CC BY-SA 4.0) で提供されています。
-これらの「継承（ShareAlike）」条件に従い、本プロジェクト全体
-（アプリのコード、加工した書き順データ、読み方・語例データ）を
-CC BY-SA 4.0 で公開します。
 
-This project includes stroke-order data derived from KanjiVG.
-KanjiVG is licensed under Creative Commons Attribution-ShareAlike 3.0
-(CC BY-SA 3.0). It also includes reading and word-example data derived from
-KANJIDIC2 / JMdict data via kanjiapi.dev. The KANJIDIC2 and JMdict data are
-maintained by the Electronic Dictionary Research and Development Group
-(EDRDG) and licensed under Creative Commons Attribution-ShareAlike 4.0
-(CC BY-SA 4.0). In compliance with these ShareAlike terms, this entire work
-(the application code, adapted stroke-order data, and reading / word-example
-data) is distributed under the Creative Commons Attribution-ShareAlike 4.0
-license.
+これらの継承（ShareAlike）条件に従い、本プロジェクト全体（アプリのコード、加工した
+書き順データ、読み方・語例データ）を CC BY-SA 4.0 で提供します。
+
+This project includes stroke-order data derived from KanjiVG, licensed under Creative
+Commons Attribution-ShareAlike 3.0 (CC BY-SA 3.0), and curated reading and word-example
+data derived from KANJIDIC2 / JMdict dictionary files. The copyright
+holders of the dictionary data are James William Breen and the Electronic Dictionary
+Research and Development Group (EDRDG); the data are licensed under Creative Commons
+Attribution-ShareAlike 4.0 (CC BY-SA 4.0). In compliance with these ShareAlike terms,
+this entire work is distributed under CC BY-SA 4.0.
 
 ライセンス全文 / Full legal code:
   https://creativecommons.org/licenses/by-sa/4.0/legalcode
 概要 / Summary (human-readable):
   https://creativecommons.org/licenses/by-sa/4.0/
 
-
 ■ 帰属表示 / Attribution
 ----------------------------------------
 書き順データ / Stroke-order data: KanjiVG
-  Copyright (C) Ulrich Apel and the KanjiVG contributors
+  Copyright: © 2009–2026 Ulrich Apel
   Website: https://kanjivg.tagaini.net/
-  Original license: CC BY-SA 3.0
+  Original license: CC BY-SA 3.0 — https://creativecommons.org/licenses/by-sa/3.0/
 
-学年別漢字の分類・読み方・語例データ /
-Grade classification, readings, and word-example data:
-  kanjiapi.dev (https://kanjiapi.dev/)
-  Source data: KANJIDIC2 / JMdict
-  Copyright: Electronic Dictionary Research and Development Group (EDRDG)
-  License: CC BY-SA 4.0
+読み方・語例データ /
+Curated readings and word-example data:
+  Source data: KANJIDIC2 / JMdict dictionary files
+  Copyright: James William Breen and the Electronic Dictionary Research and Development Group (EDRDG)
+  KANJIDIC2: https://www.edrdg.org/wiki/index.php/KANJIDIC_Project
+  JMdict: https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project
+  License: CC BY-SA 4.0 — https://creativecommons.org/licenses/by-sa/4.0/
   Licence statement: https://www.edrdg.org/edrdg/licence.html
-
 
 ■ 加工内容 / Modifications
 ----------------------------------------
-KanjiVG の各 SVG ファイルから、文字ごとの画（ストローク）のパス（d 属性）を
-画順どおりに抽出し、JSON 形式に変換して本アプリに埋め込んでいます。座標は
-KanjiVG 原寸（viewBox 109）のままです。
+KanjiVG の各 SVG ファイルから、文字ごとの画（ストローク）のパス（d 属性）を画順どおりに
+抽出し、JSON 形式に変換して本アプリに埋め込んでいます。座標は KanjiVG 原寸（viewBox 109）の
+ままです。
 
-Stroke path data (the "d" attribute of each stroke) was extracted from the
-KanjiVG SVG files, ordered by stroke number, and converted into JSON that is
-embedded in this application. Coordinates are kept at the original KanjiVG
-scale (viewBox 109).
+Stroke path data (the "d" attribute of each stroke) was extracted from KanjiVG SVG files,
+ordered by stroke number, and converted into JSON embedded in this application. Coordinates
+are kept at the original KanjiVG scale (viewBox 109).
 
-kanjiapi.dev から取得した学年、音読み、訓読み、語例データを、小学生向けの
-書き順練習画面に表示しやすい JSON 形式へ変換して本アプリに埋め込んでいます。
+KANJIDIC2 / JMdict dictionary files に由来する、児童向けに選定した音読み、訓読み、語例データを、
+表示しやすい JSON 形式へ変換して本アプリに埋め込んでいます。学年別の出題範囲はアプリ内の固定リストに
+基づきます。
 
-Grade, on-reading, kun-reading, and word-example data obtained via
-kanjiapi.dev were converted into JSON embedded in this application for
-display in an elementary-student stroke-order practice interface.
+Curated on-reading, kun-reading, and word-example data derived from KANJIDIC2 / JMdict
+dictionary files were converted into JSON embedded in this application. Grade-level
+question groups are fixed in the application.
 
+取得日時・版・ハッシュ・検証手順・更新手順は DATA_PROVENANCE.md を参照してください。
 
 ■ モンスター等のイラスト / Artwork
 ----------------------------------------
 本アプリ内のモンスターなどのイラストは、本プロジェクトのオリジナル（SVGで自作）です。
 特定の作品・キャラクターに由来するものではありません。
 
-The monster and other artwork in this app are original to this project
-(hand-authored SVG) and are not derived from any specific third-party work.
+The monster and other artwork in this app are original to this project (hand-authored SVG)
+and are not derived from any specific third-party work.
