@@ -24,8 +24,8 @@ REPAIRS = {
     "統": {"kun": "すべる"},
 }
 EXPECTED_KANJIVG_REVISION = "d95a97627fd9fe5b2c8d06ca81e38149609c0c1e"
-EXPECTED_KANJIDIC2_SHA256 = "927bc30c4e5b192af59cc6f1d60ed297e01ea19199a11e2ff92cc4cd220b469a"
-EXPECTED_JMDICT_SHA256 = "a2a82a523ad15827f573017b1a7cca452b3ccc8b52eb3d02860ff6a76b5a7187"
+EXPECTED_KANJIDIC2_SHA256 = "12cbd54ca51967cf2ead06b97e816a2d6e0a25757c4eb0a07df4272d2f2e1428"
+EXPECTED_JMDICT_SHA256 = "b835226b13a6c661001df83dddee281198b2a2871e44fdc2200dd547d7dccdb9"
 
 
 def sha256(path):
@@ -44,7 +44,7 @@ def embedded_readings(app_path):
     readings = json.loads(match.group(1))
     for char, repair in REPAIRS.items():
         readings[char].update(repair)
-    data_match = re.search(r"const DATA = (\{[\s\S]*?\n\});\nconst CATS", text)
+    data_match = re.search(r"const DATA = (\{[\s\S]*?\});\nconst CATS", text)
     if not data_match:
         raise ValueError("DATA block was not found")
     return json.loads(data_match.group(1)), readings

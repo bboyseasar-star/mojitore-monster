@@ -6,7 +6,7 @@
 
 - 原著: KanjiVG — Copyright © 2009–2026 Ulrich Apel
 - 配布元: https://kanjivg.tagaini.net/
-- 原著ライセンス: Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) — https://creativecommons.org/licenses/by-sa/3.0/
+- 原著ライセンス: Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) — https://creativecommons.org/licenses/by-sa/3.0/legalcode
 - 加工内容: 各SVGから文字ごとの画（stroke）のパス（`d`属性）を画順順に抽出し、JSON形式に変換して書き順表示・判定に使用しています。
 
 ## KANJIDIC2・JMdict（漢字情報・語例）
@@ -20,8 +20,8 @@
 
 ## このアプリ
 
-本アプリおよび上記の加工データはCC BY-SA 4.0で提供します。正式なライセンス本文は https://creativecommons.org/licenses/by-sa/4.0/legalcode を参照してください。モンスターなどのイラストは自作SVGです。学習記録は端末内のlocalStorageにのみ保存され、外部送信はありません。
+本アプリおよび上記の加工データはCC BY-SA 4.0で提供します。正式なライセンス本文は https://creativecommons.org/licenses/by-sa/4.0/legalcode を参照してください。モンスターなどのイラストは自作SVGです。プロフィール名（任意入力）と学習記録は、この端末のブラウザ内（localStorage）にのみ保存され、外部送信はありません。端末を共有する場合、同じブラウザを使う他の利用者にも表示される可能性があります。
 
 ## 来歴・更新に関する注記
 
-取得日時・版・ハッシュ・検証手順・更新手順は [DATA_PROVENANCE.md](./DATA_PROVENANCE.md) に記録しています。EDRDGデータの更新確認は、公開更新時または少なくとも年1回行います。
+取得日時・版・ハッシュ・検証手順・更新手順は [DATA_PROVENANCE.md](./DATA_PROVENANCE.md) に記録しています。EDRDGデータの更新確認は少なくとも月1回行い、更新があった場合は取得日時・URL・ハッシュ、検証結果と採否を記録します。

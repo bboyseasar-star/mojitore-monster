@@ -4,3 +4,15 @@ _kvg_src/
 node_modules/
 *.zip
 *.log
+
+# === Secrets & Credentials (added by hina) ===
+.env
+.env.*
+credentials*
+*.secret.*
+*password*
+*.key
+*.pem
+# clasp (GAS)
+.clasp.json
+.clasprc.json
