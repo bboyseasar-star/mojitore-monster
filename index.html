@@ -751,7 +751,7 @@ function startTestQuestion(){
   layoutCanvas();
   updateKanjiInfo();
   updateProgress(); updateStrokeInfo();
-  setMsg(`${testIndex+1}もんめ！うすい もじを なぞって、書き順を たしかめよう`,'info');
+  setMsg(`${testIndex+1}もんめ！うすい もじを なぞって、書き順を たしかめよう。あっていた画は みどりで のこるよ`,'info');
   startAnim();
 }
 
@@ -927,8 +927,11 @@ function drawAll(){
     ctx.strokeStyle="#39c46e"; ctx.lineWidth=8;
     for(let i=0;i<curStroke;i++) ctx.stroke(new Path2D(strokes[i]));
   }else{
+    // テストも練習と同様に、正解した画は緑で残す。始点・方向のヒントは出さない。
     ctx.strokeStyle="#d9d2ca"; ctx.lineWidth=7;
-    for(const stroke of strokes) ctx.stroke(new Path2D(stroke));
+    for(let i=curStroke;i<strokes.length;i++) ctx.stroke(new Path2D(strokes[i]));
+    ctx.strokeStyle="#39c46e"; ctx.lineWidth=8;
+    for(let i=0;i<curStroke;i++) ctx.stroke(new Path2D(strokes[i]));
   }
 
   // 現在ストロークのガイド（始点・矢印・流れる点）※テスト中は出さない
@@ -1046,7 +1049,7 @@ function onRepComplete(){
       // テストへ
       mode='test'; curStroke=0; testMistakes=0;
       updateProgress(); updateStrokeInfo();
-      setMsg('5かい できた！つぎは テスト！うすい もじを なぞって、書き順を たしかめよう','good');
+      setMsg('5かい できた！つぎは テスト！うすい もじを なぞって、書き順を たしかめよう。あっていた画は みどりで のこるよ','good');
       confettiBurst(10);
       drawAll();
     }else{
