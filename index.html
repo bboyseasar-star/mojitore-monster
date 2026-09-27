@@ -751,7 +751,7 @@ function startTestQuestion(){
   layoutCanvas();
   updateKanjiInfo();
   updateProgress(); updateStrokeInfo();
-  setMsg(`${testIndex+1}もんめ！順番・始点のヒントなしで かいてね`,'info');
+  setMsg(`${testIndex+1}もんめ！うすい もじを なぞって、書き順を たしかめよう`,'info');
   startAnim();
 }
 
@@ -883,10 +883,10 @@ function updateStrokeInfo(){
 }
 function updateProgress(){
   const p=document.getElementById('prog');
-  // テスト中は「おてほん」を隠す（自力で書く）
+  // テスト中はおてほん再生だけを隠し、薄い見本線はキャンバスに残す。
   document.getElementById('demoBtn').style.display = (mode==='test'||mode==='tenTest')?'none':'';
   if(mode==='tenTest'){ p.innerHTML=`<span class="test-status">テスト ${testIndex+1}／${testQueue.length}</span>`; return; }
-  if(mode==='test'){ p.innerHTML='<span class="prog-test">テスト ✏️ ヒントなし</span>'; return; }
+  if(mode==='test'){ p.innerHTML='<span class="prog-test">テスト ✏️ 書き順を たしかめよう</span>'; return; }
   let s='<span class="prog-label">れんしゅう</span>';
   for(let i=0;i<TARGET_PRACTICE;i++) s+=`<span class="dot${i<practiceCount?' on':''}">★</span>`;
   p.innerHTML=s;
@@ -913,7 +913,7 @@ function drawAll(){
   ctx.setLineDash([6,8]); ctx.strokeStyle="#f2ece5";
   ctx.strokeRect(cssSize*0.12,cssSize*0.12,cssSize*0.76,cssSize*0.76); ctx.setLineDash([]);
 
-  // 練習時だけ正解パスをガイドとして描く。テストでは正解パスを一切表示しない。
+  // 薄い見本線は全モードで表示する。テストでは始点・方向の手掛かりは表示しない。
   ctx.setTransform(baseScale*dpr,0,0,baseScale*dpr,0,0);
   ctx.lineCap="round"; ctx.lineJoin="round";
   if(mode==='practice'){
@@ -926,6 +926,9 @@ function drawAll(){
     }
     ctx.strokeStyle="#39c46e"; ctx.lineWidth=8;
     for(let i=0;i<curStroke;i++) ctx.stroke(new Path2D(strokes[i]));
+  }else{
+    ctx.strokeStyle="#d9d2ca"; ctx.lineWidth=7;
+    for(const stroke of strokes) ctx.stroke(new Path2D(stroke));
   }
 
   // 現在ストロークのガイド（始点・矢印・流れる点）※テスト中は出さない
@@ -997,6 +1000,8 @@ function endStroke(e){
     };
     let txt = m[res.reason]||'もういちど なぞってみよう';
     if(mode==='test'||mode==='tenTest'){
+      if(res.reason==='direction') txt='むきを たしかめて、うすい もじの はじめから かいてね';
+      if(res.reason==='start') txt='はじめる ばしょを たしかめて、うすい もじの はじめから かいてね';
       testMistakes++;
       const lost = applyPenalty(TEST_PENALTY);
       if(lost>0) txt += ` （−${lost} けいけんち…💦）`;
@@ -1041,7 +1046,7 @@ function onRepComplete(){
       // テストへ
       mode='test'; curStroke=0; testMistakes=0;
       updateProgress(); updateStrokeInfo();
-      setMsg('5かい できた！つぎは テスト！ノーミスで けいけんち ボーナス ✨ ミスると けいけんち ダウン💦','good');
+      setMsg('5かい できた！つぎは テスト！うすい もじを なぞって、書き順を たしかめよう','good');
       confettiBurst(10);
       drawAll();
     }else{
