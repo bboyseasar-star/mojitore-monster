@@ -25,4 +25,4 @@ https://bboyseasar-star.github.io/mojitore-monster/
 - 読み・語例データ: [KANJIDIC2](https://www.edrdg.org/wiki/index.php/KANJIDIC_Project)／[JMdict](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project) dictionary files から児童向けに選定・加工。Copyright © James William Breen and the Electronic Dictionary Research and Development Group (EDRDG)（[EDRDG General Dictionary Licence](https://www.edrdg.org/edrdg/licence.html)／[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)）。
 - 学年別の出題範囲はアプリ内の固定リストに基づきます。取得日時・版・ハッシュ・検証／更新手順は [DATA_PROVENANCE.md](./DATA_PROVENANCE.md) を参照してください。
 - 本プロジェクトは、上記データの継承条件に従い **CC BY-SA 4.0** で公開します。詳細は [LICENSE](./LICENSE) と [NOTICE.md](./NOTICE.md) を参照してください。
-- モンスター等のイラストはオリジナル（自作SVG）です。
+- モンスターのアニメーション画像は、画像生成AIで作成し、本プロジェクトで加工（背景の除去・切り分け・大きさの調整）したものです。特定の作品・キャラクターに似せないよう指示して作成しています。画像を用意していない場合の代替表示には自作SVGを使います。生成AIによる画像には、法令上、著作権が生じない場合があります。本プロジェクトの CC BY-SA 4.0 は、権利が生じる範囲でこれらの画像にも適用されます。

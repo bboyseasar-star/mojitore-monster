@@ -16,3 +16,11 @@ credentials*
 # clasp (GAS)
 .clasp.json
 .clasprc.json
+
+# === AI への指示書（公開しない。2026-11-07 よしはるさん決定） ===
+AGENTS.md
+CLAUDE.md
+
+# === 公開前の点検の記録（社内用。公開しない） ===
+LEGAL_REVIEW.md
+ANSWER_QA.md

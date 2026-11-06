@@ -64,8 +64,14 @@ question groups are fixed in the application.
 
 ■ モンスター等のイラスト / Artwork
 ----------------------------------------
-本アプリ内のモンスターなどのイラストは、本プロジェクトのオリジナル（SVGで自作）です。
-特定の作品・キャラクターに由来するものではありません。
+本アプリ内のモンスターのアニメーション画像は、画像生成AIで作成し、本プロジェクトで加工
+（背景の除去・切り分け・大きさの調整）したものです。特定の作品・キャラクターに似せないよう
+指示して作成しています。画像を用意していない場合の代替表示には、本プロジェクトで自作した
+SVG を使います。生成AIによる画像には、法令上、著作権が生じない場合があります。本プロジェクトの
+CC BY-SA 4.0 は、権利が生じる範囲でこれらの画像にも適用されます。
 
-The monster and other artwork in this app are original to this project (hand-authored SVG)
-and are not derived from any specific third-party work.
+The animated monster images in this app were created with generative AI and edited for this
+project (background removal, frame separation, resizing). They were prompted not to imitate any
+specific existing work or character. Hand-authored SVG is used as a fallback where no image is
+provided. AI-generated images may not be protected by copyright under applicable law; this
+project's CC BY-SA 4.0 license applies to them only to the extent that rights exist.
