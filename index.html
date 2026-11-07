@@ -919,6 +919,9 @@ const cv = document.getElementById('cv');
 const ctx = cv.getContext('2d');
 let curChar=null, strokes=[], curStroke=0, cssSize=340, baseScale=1, dpr=1;
 let drawing=false, activePtr=null, userPts=[], animId=null, animT=0;
+// 練習モードのガイドの点：幼児でもなぞれるよう、どの画も同じ速さにする（viewBox 109 基準・1秒あたり）
+const GUIDE_SPEED=40, GUIDE_WAIT_START=500, GUIDE_WAIT_END=600;
+let animMs=0, guideKey='', guideT0=0;
 let mode='practice', practiceCount=0, testMistakes=0;
 const TARGET_PRACTICE=5, TEST_PENALTY=4;
 
@@ -1049,8 +1052,15 @@ function drawAll(){
   // 現在ストロークのガイド（始点・矢印・流れる点）※テスト中は出さない
   if(mode==='practice' && curStroke<strokes.length){
     const exp=pathSamples(strokes[curStroke],40);
-    // 流れる点
-    const pos=exp.pts[Math.floor(animT*(exp.pts.length-1))];
+    // 流れる点：画の長さに関係なく、いつも同じ速さ（GUIDE_SPEED）で動かす
+    const gKey=curChar+':'+curStroke;
+    if(gKey!==guideKey){ guideKey=gKey; guideT0=animMs; }
+    const travelMs=exp.len/GUIDE_SPEED*1000;
+    const cycleMs=GUIDE_WAIT_START+travelMs+GUIDE_WAIT_END;
+    const tIn=((animMs-guideT0)%cycleMs+cycleMs)%cycleMs;
+    const prog=Math.min(1,Math.max(0,(tIn-GUIDE_WAIT_START)/travelMs));
+    const fi=prog*(exp.pts.length-1), i0=Math.floor(fi), i1=Math.min(i0+1,exp.pts.length-1), fr=fi-i0;
+    const pos={x:exp.pts[i0].x+(exp.pts[i1].x-exp.pts[i0].x)*fr, y:exp.pts[i0].y+(exp.pts[i1].y-exp.pts[i0].y)*fr};
     ctx.setTransform(dpr,0,0,dpr,0,0);
     const sp=vbToCss(exp.pts[0]);
     // 始点マーク（ピカピカ）
@@ -1072,7 +1082,7 @@ function drawAll(){
     ctx.stroke();
   }
 }
-function startAnim(){ stopAnim(); const loop=(t)=>{ animT=(t/1400)%1; drawAll(); animId=requestAnimationFrame(loop); }; animId=requestAnimationFrame(loop); }
+function startAnim(){ stopAnim(); const loop=(t)=>{ animMs=t; animT=(t/1400)%1; drawAll(); animId=requestAnimationFrame(loop); }; animId=requestAnimationFrame(loop); }
 function stopAnim(){ if(animId){ cancelAnimationFrame(animId); animId=null; } }
 
 // ポインタ
